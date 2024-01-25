@@ -1,0 +1,71 @@
+﻿@using Indigo_Exam.Areas.Manage.ViewModels;
+@model PaginationVM<Post>
+@{
+    int count = 1;
+}
+<div class="card-body">
+    <h4 class="card-title">Striped Table</h4>
+    <a class="btn btn-success" asp-action="create" asp-controller="post" >Create</a>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        No
+                    </th>
+                    <th>
+                        Image
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    
+                    
+                    <th>
+                        Setting
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+               @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @(count++)
+                        </td>
+                        <td class="py-1">
+                            <img src="~/assets/images/@item.Image" alt="image">
+                        </td>
+                        <td>
+                            @item.Title
+                        </td>
+                        
+                        <td>
+                            <a class="btn btn-warning" asp-action="update" asp-controller="post" asp-route-id="@item.Id">Update</a>
+                            <a class="btn btn-secondary" asp-action="delete" asp-controller="post" asp-route-id="@item.Id">Delete</a>
+
+                        </td>
+                        
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item @(Model.Currentpage<=1?"disabled":"")">
+                <a class="page-link" asp-action="index" asp-controller="post" asp-route-page="@(Model.Currentpage-1)">Previous</a>
+            </li>
+            @for (int i = 0; i < Model.TotalPage; i++)
+            {
+                <li class="page-item @(Model.Currentpage-1==i?"active":"")" aria-current="page">
+                    <a class="page-link" asp-action="index" asp-controller="post" asp-route-page="@(i+1)">@(i+1)</a>
+                </li>
+            }
+            <li class="page-item @(Model.TotalPage<=Model.Currentpage?"disabled":"")">
+                <a class="page-link" asp-action="index" asp-controller="post" asp-route-page="@(Model.Currentpage+1)">Next</a>
+            </li>
+        </ul>
+    </nav>
+</div>

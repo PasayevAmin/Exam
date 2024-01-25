@@ -1,0 +1,56 @@
+﻿@using Indigo_Exam.Areas.Manage.ViewModels;
+@model PaginationVM<Setting>
+@{
+    int count = 1;
+}
+<div class="card-body">
+    <h4 class="card-title">Striped Table</h4>
+   
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        No
+                    </th>
+                    <th>
+                        Key
+                    </th>
+                    <th>
+                        Value
+                    </th>
+
+
+                    <th>
+                        Setting
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    <tr>
+                        <td>
+                            @(count++)
+                        </td>
+
+
+                        <td>
+                            @item.Key
+                        </td>
+                        <td>
+                            @item.Value
+                        </td>
+
+                        <td>
+                            <a class="btn btn-warning" asp-action="update" asp-controller="setting" asp-route-id="@item.Id">Update</a>
+
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
